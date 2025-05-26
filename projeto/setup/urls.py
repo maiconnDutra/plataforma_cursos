@@ -16,7 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from cursos.views import CursoListView, CursoCreateView, CursoUpdateView, CursoDeleteView, CursoDetailView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('', CursoListView.as_view(), name='curso_list'),
+    path('novo/', CursoCreateView.as_view(), name='curso_create'),
+    path('editar/<int:pk>/', CursoUpdateView.as_view(), name='curso_update'),
+    path('excluir/<int:pk>/', CursoDeleteView.as_view(), name='curso_delete'),
+    path('curso/<int:pk>/', CursoDetailView.as_view(), name='curso_detail'),
 ]

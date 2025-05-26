@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ curso.titulo }}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .scroll-box {
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .aula-item {
+      padding: 10px;
+      border-bottom: 1px solid #dee2e6;
+    }
+    .aula-item:last-child {
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body class="bg-light">
+<div class="container py-5">
+
+  <div class="card shadow-lg mb-4">
+    <div class="row g-0">
+      <div class="col-md-5">
+        <img src="{{ curso.capa_url }}" class="img-fluid rounded-start h-100 object-fit-cover" alt="Capa de {{ curso.titulo }}">
+      </div>
+      <div class="col-md-7">
+        <div class="card-body">
+          <h2 class="card-title">{{ curso.titulo }}</h2>
+          <p class="text-muted mb-1"><strong>Nível:</strong> {{ curso.get_nivel_display }}</p>
+          <p class="text-muted mb-1"><strong>Duração:</strong> {{ curso.carga_horaria }} horas</p>
+          <p class="text-muted mb-3"><strong>Preço:</strong> R$ {{ curso.preco }}</p>
+
+          <h5>Descrição</h5>
+          <p>{{ curso.descricao }}</p>
+
+          <div class="d-flex gap-2 mt-4">
+            <a href="{% url 'curso_list' %}" class="btn btn-secondary">Voltar</a>
+            <a href="{% url 'curso_update' curso.pk %}" class="btn btn-primary">Editar</a>
+            <a href="{% url 'curso_delete' curso.pk %}" class="btn btn-danger">Excluir</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Aulas</h5>
+      <a href="#" class="btn btn-outline-info btn-sm">+ Adicionar Aula</a>
+    </div>
+    <div class="card-body scroll-box">
+      {% for aula in curso.aulas.all %}
+        <div class="aula-item">
+          <strong>{{ aula.titulo }}</strong><br>
+          {{ aula.descricao|truncatewords:15 }}
+        </div>
+      {% empty %}
+        <p class="text-muted">Nenhuma aula cadastrada.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
