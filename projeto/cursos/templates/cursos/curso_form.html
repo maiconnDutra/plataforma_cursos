@@ -44,9 +44,9 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label" for="id_preco">Preço</label>
-          <input type="number" step="0.01" name="preco" id="id_preco" class="form-control" value="{{ form.preco.value|default_if_none:'' }}">
-          {{ form.preco.errors }}
+          <label class="form-label" for "{{form.preco.id_for_label}}">Preço</label>
+          {{form.preco}}
+          {{form.preco.erros}}
         </div>
 
         <div class="mb-3">
