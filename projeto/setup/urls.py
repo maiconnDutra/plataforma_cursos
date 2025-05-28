@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from cursos.views import CursoListView, CursoCreateView, CursoUpdateView, CursoDeleteView, CursoDetailView
+from cursos.views import CursoListView, CursoCreateView, CursoUpdateView, CursoDeleteView, CursoDetailView, AulaCreateView, AulaUpdateView, AulaDeleteView, video_player
 
 urlpatterns = [
     path('', CursoListView.as_view(), name='curso_list'),
@@ -24,4 +24,8 @@ urlpatterns = [
     path('editar/<int:pk>/', CursoUpdateView.as_view(), name='curso_update'),
     path('excluir/<int:pk>/', CursoDeleteView.as_view(), name='curso_delete'),
     path('curso/<int:pk>/', CursoDetailView.as_view(), name='curso_detail'),
+    path('curso/<int:curso_id>/aula/novo/', AulaCreateView.as_view(), name='aula_create_com_curso'),
+    path('aula/<int:pk>/editar/', AulaUpdateView.as_view(), name='aula_update'),
+    path('aula/<int:pk>/excluir/', AulaDeleteView.as_view(), name='aula_delete'),
+    path('assistir/', video_player, name='video_player'),
 ]
