@@ -8,16 +8,71 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      background-color: black;
+      background-color: #000;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
+
+    .video-container {
+      position: relative;
+      background-color: #111;
+      padding: 1rem;
+      border-radius: 10px;
+      border: 2px solid #555;
+      width: 90vw;
+      height: calc(90vw * 9 / 16); /* Proporção 16:9 */
+      max-width: 1200px;
+      max-height: 90vh;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .top-bar {
+      margin-bottom: 1rem;
+    }
+
+    .top-bar a {
+      background-color: #ffffffcc;
+      color: #000;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+
     iframe {
+      flex-grow: 1;
       width: 100%;
       height: 100%;
       border: none;
+      border-radius: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .video-container {
+        width: 95vw;
+        height: calc(95vw * 9 / 16);
+      }
     }
   </style>
 </head>
 <body>
-  <iframe src="{{ video_url }}" allowfullscreen></iframe>
+  <div class="video-container">
+    {% if curso %}
+    <div class="top-bar" style="display: flex; align-items: center; gap: 1rem;">
+        <a href="{% url 'curso_detail' curso.pk %}">⬅ Voltar para o Curso</a>
+    {% if aula %}
+    <span style="color: #fff; font-size: 1rem; font-weight: bold;">
+      {{ aula.titulo }} 
+    </span>
+    {% endif %}
+</div>
+
+    {% endif %}
+    <iframe src="{{ video_url }}" allowfullscreen></iframe>
+  </div>
 </body>
 </html>

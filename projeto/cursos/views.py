@@ -1,5 +1,5 @@
 from urllib.parse import parse_qs, urlparse
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView, DetailView
 from django.urls import reverse_lazy
 from .models import Curso, Aula
@@ -78,6 +78,8 @@ class AulaDeleteView(DeleteView):
     
 def video_player(request):
     original_url = request.GET.get('url', '')
+    curso_id = request.GET.get('curso_id')
+
     embed_url = original_url
 
     if "youtube.com/watch" in original_url:
@@ -85,4 +87,9 @@ def video_player(request):
         if video_id:
             embed_url = f"https://www.youtube.com/embed/{video_id[0]}"
 
-    return render(request, 'cursos/video_player.html', {'video_url': embed_url})
+    curso = get_object_or_404(Curso, pk=curso_id) if curso_id else None
+
+    return render(request, 'cursos/video_player.html', {
+        'video_url': embed_url,
+        'curso': curso,
+    })

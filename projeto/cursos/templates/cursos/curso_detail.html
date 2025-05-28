@@ -111,7 +111,8 @@
     </div>
     <div class="aula-actions d-flex gap-1">
       {% if aula.video_url %}
-        <a href="{% url 'video_player' %}?url={{ aula.video_url|urlencode }}" class="btn btn-sm btn-outline-success" title="Assistir vídeo">▶️</a>
+        <a href="{% url 'video_player' %}?url={{ aula.video_url|urlencode }}&curso_id={{ curso.pk }}"
+   class="btn btn-sm btn-outline-success" title="Assistir vídeo">▶️</a>
       {% endif %}
       <a href="{% url 'aula_update' aula.pk %}" class="btn btn-sm btn-outline-primary">✏️</a>
       <a href="{% url 'aula_delete' aula.pk %}" class="btn btn-sm btn-outline-danger"
